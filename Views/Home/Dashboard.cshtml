@@ -1,0 +1,49 @@
+@using Wedding_Planner.Models
+@model User_Weddings
+
+<h1>Welcome to the Wedding Planner! <span style="float:right; margin-right: 12px;"><a href="/">Log Out</a></span></h1>
+<br>
+<br>
+<table class="table">
+    <thead>
+        <th scope="col">Wedding</th>
+        <th>Date</th>
+        <th>Guest</th>
+        <th>Action</th>
+    </thead>
+    @foreach (var w in @ViewBag.AllWeddings)
+    {
+    <tr scope="row">
+        <td><a href="wedding/@w.WeddingId">@w.WedderOne and @w.WedderTwo </a></td>
+        <td>@w.Date</td>
+        <td>@w.RSVP_Wedding.Count</td>
+        <td>
+            @if (@ViewBag.UserId == @w.CreatorId) {
+                <a href="delete/@w.WeddingId">Delete</a>
+                }
+            else
+            {
+                int isGuest = 0;
+                @foreach(var guest in @w.RSVP_Wedding)
+                {
+                    @if (@guest.User.UserId == @ViewBag.UserId) {
+                    isGuest = 1;
+                    }
+                }
+
+                    @if (isGuest == 1) {
+                    <a href="decline/@w.WeddingId">UN-RSVP</a>
+                    }
+
+                    else {
+                    <form asp-action="RSVP" asp-controller="Home" method="post">
+                    <input type="hidden" name="WeddingId" value="@w.WeddingId">
+                    <input value="RSVP" type="submit">
+                    </form>
+                }
+            }
+        </td>
+    </tr>
+    }
+</table>
+<a name="" id="" class="btn btn-primary" href="/new" role="button">New Wedding</a>

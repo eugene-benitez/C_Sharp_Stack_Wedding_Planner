@@ -1,0 +1,29 @@
+@using Wedding_Planner.Models
+@model Wedding
+
+<h1>Plan Your Wedding</h1>
+
+<form asp-action="Create" asp-controller="Home" method="post">
+    <span asp-validation-for="WedderOne"></span>
+    <label asp-for="WedderOne"></label>
+    <br>
+    <input asp-for="WedderOne">
+    <br>
+    <span asp-validation-for="WedderTwo"></span>
+    <label asp-for="WedderTwo"></label>
+    <br>
+    <input asp-for="WedderTwo">
+    <br>
+    <span asp-validation-for="Address"></span>
+    <label asp-for="Address"></label>
+    <br>
+    <input asp-for="Address">
+    <br>
+    <span asp-validation-for="Date">@ViewBag.Error</span>
+    <label asp-for="Date"></label>
+    <br>
+    <input asp-for="Date">
+    <br>
+    <br>
+    <input type="submit" value="Create">
+</form>
